@@ -23,6 +23,7 @@ class LineChart extends ImplicitlyAnimatedWidget {
     super.duration = const Duration(milliseconds: 150),
     super.curve = Curves.linear,
     this.transformationConfig = const FlTransformationConfig(),
+    this.ignorePanGesture = false,
   });
 
   /// Determines how the [LineChart] should be look like.
@@ -34,6 +35,9 @@ class LineChart extends ImplicitlyAnimatedWidget {
   /// We pass this key to our renderers which are supposed to
   /// render the chart itself (without anything around the chart).
   final Key? chartRendererKey;
+
+  // Ignore pan gesture for better explicit scroll support
+  final bool ignorePanGesture;
 
   /// Creates a [_LineChartState]
   @override
@@ -69,6 +73,7 @@ class _LineChartState extends AnimatedWidgetBaseState<LineChart> {
         key: widget.chartRendererKey,
         chartVirtualRect: chartVirtualRect,
         canBeScaled: widget.transformationConfig.scaleAxis != FlScaleAxis.none,
+        ignorePanGesture: widget.ignorePanGesture,
       ),
       data: showingData,
     );
