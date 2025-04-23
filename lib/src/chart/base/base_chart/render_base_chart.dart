@@ -15,10 +15,11 @@ abstract class RenderBaseChart<R extends BaseTouchResponse> extends RenderBox
     FlTouchData<R>? touchData,
     BuildContext context, {
     required bool canBeScaled,
+    required bool ignorePanGesture,
   })  : _canBeScaled = canBeScaled,
         _buildContext = context {
     updateBaseTouchData(touchData);
-    initGestureRecognizers();
+    initGestureRecognizers(ignorePanGesture: ignorePanGesture);
   }
 
   bool get canBeScaled => _canBeScaled;

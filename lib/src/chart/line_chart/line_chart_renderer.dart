@@ -16,22 +16,24 @@ class LineChartLeaf extends LeafRenderObjectWidget {
     required this.targetData,
     required this.canBeScaled,
     required this.chartVirtualRect,
+    this.ignorePanGesture = false,
   });
 
   final LineChartData data;
   final LineChartData targetData;
   final Rect? chartVirtualRect;
   final bool canBeScaled;
+  final bool ignorePanGesture;
 
   @override
   RenderLineChart createRenderObject(BuildContext context) => RenderLineChart(
-        context,
-        data,
-        targetData,
-        MediaQuery.of(context).textScaler,
-        chartVirtualRect,
-        canBeScaled: canBeScaled,
-      );
+      context,
+      data,
+      targetData,
+      MediaQuery.of(context).textScaler,
+      chartVirtualRect,
+      canBeScaled: canBeScaled,
+      ignorePanGesture: ignorePanGesture);
 
   @override
   void updateRenderObject(BuildContext context, RenderLineChart renderObject) {
@@ -55,6 +57,7 @@ class RenderLineChart extends RenderBaseChart<LineTouchResponse> {
     TextScaler textScaler,
     Rect? chartVirtualRect, {
     required bool canBeScaled,
+    required bool ignorePanGesture,
   })  : _data = data,
         _targetData = targetData,
         _textScaler = textScaler,
@@ -63,6 +66,7 @@ class RenderLineChart extends RenderBaseChart<LineTouchResponse> {
           targetData.lineTouchData,
           context,
           canBeScaled: canBeScaled,
+          ignorePanGesture: ignorePanGesture,
         );
 
   LineChartData get data => _data;
